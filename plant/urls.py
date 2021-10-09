@@ -9,4 +9,8 @@ urlpatterns = [
     path('move-datasets-to-data-sample/', views.MoveDatasetToDataSampleView.as_view()),
     path('add-joins/', views.AddWorkpieceJoinsView.as_view()),
     path('add-features/', views.AddWorkpieceFeatures.as_view()),
+    path('add-limits/', views.AddLimitsView.as_view()),
+    path('create-task-text/', views.CreateTaskTextView.as_view()),
+    path('set-workpice-pricing/', views.SetWorkpiecePricingView.as_view()),
+
 ]

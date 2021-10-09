@@ -20,8 +20,8 @@ class Workpiece(models.Model):
 
 
 class WorkpiecePricing(models.Model):
-    workpiece = models.OneToOneField('plant.Workpiece', on_delete=models.CASCADE)
-    is_free = models.BooleanField()
+    workpiece = models.OneToOneField('plant.Workpiece', on_delete=models.CASCADE, related_name='pricing')
+    is_free = models.BooleanField(default=True)
     price = models.DecimalField(max_digits=19, decimal_places=4)
     currency = models.PositiveSmallIntegerField(
         choices=DatasetPriceCurrency.choices(),

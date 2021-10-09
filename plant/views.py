@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
+from rest_framework.generics import CreateAPIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -10,8 +11,8 @@ from plant.cases.conver_dataset_to_data_sample import ConvertDatasetsToDataSampl
 from plant.cases.create_data_sample import CreateDataSampleService, \
     RawOperations
 from plant.cases.init_workpiece import InitWorkpieceService
-from plant.models import Workpiece
-from plant.serializers import WorkpieceSerializer
+from plant.models import Workpiece, WorkpiecePricing
+from plant.serializers import WorkpieceSerializer, WorkpiecePricingSerializer
 from stock.models import Dataset
 
 
@@ -176,3 +177,82 @@ class AddWorkpieceFeatures(APIView):
         workpiece.save()
         response_serializer = WorkpieceSerializer(instance=workpiece)
         return Response(response_serializer.data)
+
+
+class AddLimitsView(APIView):
+
+    class AddWorkpieceLimitsSerializer(serializers.Serializer):
+        workpiece_id = serializers.IntegerField(min_value=1)
+        limits = serializers.JSONField()
+
+    def get(self, request, *args, **kwargs):
+        qs = Workpiece.objects \
+            .filter(author=self.request.user, is_active=True)
+        serializer = WorkpieceSerializer(instance=qs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        request_serializers = self.AddWorkpieceLimitsSerializer(data=request.data)
+        request_serializers.is_valid(raise_exception=True)
+
+        workpiece = get_object_or_404(
+            Workpiece,
+            id=request_serializers.validated_data['workpiece_id'],
+        )
+        workpiece.limits = request_serializers.validated_data['limits']
+        workpiece.save()
+        response_serializer = WorkpieceSerializer(instance=workpiece)
+        return Response(response_serializer.data)
+
+
+class CreateTaskTextView(APIView):
+
+    class CreateTaskTextSerializer(serializers.Serializer):
+        workpiece_id = serializers.IntegerField(min_value=1)
+
+    def get(self, request, *args, **kwargs):
+        qs = Workpiece.objects \
+            .filter(author=self.request.user, is_active=True)
+        serializer = WorkpieceSerializer(instance=qs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        request_serializers = self.CreateTaskTextSerializer(data=request.data)
+        request_serializers.is_valid(raise_exception=True)
+
+        workpiece = get_object_or_404(
+            Workpiece,
+            id=request_serializers.validated_data['workpiece_id'],
+        )
+        # TODO процессинг, докинуть прайсинг is_free, если никакого нет
+        response_serializer = WorkpieceSerializer(instance=workpiece)
+        return Response(response_serializer.data)
+
+
+class SetWorkpiecePricingView(CreateAPIView):
+
+    serializer_class = WorkpiecePricingSerializer
+
+    def get_queryset(self):
+        return WorkpiecePricing.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        qs = Workpiece.objects \
+            .filter(author=self.request.user, is_active=True)
+        serializer = WorkpieceSerializer(instance=qs, many=True)
+        return Response(serializer.data)
+
+
+class CalculateResultDatasetPrelimPrice(serializers.Serializer):
+
+    class CalculateResultDatasetPrelimSerializer(serializers.Serializer):
+        workpiece_id = serializers.IntegerField(min_value=1)
+
+    def get(self, request, *args, **kwargs):
+        qs = Workpiece.objects \
+            .filter(author=self.request.user, is_active=True)
+        serializer = WorkpieceSerializer(instance=qs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        pass

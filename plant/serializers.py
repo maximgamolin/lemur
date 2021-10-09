@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from plant.models import Workpiece, DataSampling
+from plant.models import Workpiece, DataSampling, WorkpiecePricing
 from stock.serializers import DatasetSerializer
 
 
@@ -11,10 +11,17 @@ class DataSamplingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class WorkpiecePricingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkpiecePricing
+        fields = '__all__'
+
+
 class WorkpieceSerializer(serializers.ModelSerializer):
 
     parental_datasets = DatasetSerializer(many=True)
     datasamples = DataSamplingSerializer(many=True)
+    pricing = WorkpiecePricingSerializer()
 
     class Meta:
         model = Workpiece
@@ -27,4 +34,5 @@ class WorkpieceSerializer(serializers.ModelSerializer):
                   'raw_features',
                   'features',
                   'limits',
-                  'datasamples')
+                  'datasamples',
+                  'pricing')

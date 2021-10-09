@@ -124,3 +124,29 @@ class MoveDatasetToDataSampleView(APIView):
         workpiece = service.convert()
         response_serializer = WorkpieceSerializer(instance=workpiece)
         return Response(response_serializer.data)
+
+
+class AddWorkpieceJoinsView(APIView):
+
+    class AddWorkpieceJoinsSerializer(serializers.Serializer):
+        workpiece_id = serializers.IntegerField(min_value=1)
+        raw_joins = serializers.JSONField()
+
+    def get(self, request, *args, **kwargs):
+        qs = Workpiece.objects \
+            .filter(author=self.request.user, is_active=True)
+        serializer = WorkpieceSerializer(instance=qs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        request_serializers = self.AddWorkpieceJoinsSerializer(data=request.data)
+        request_serializers.is_valid(raise_exception=True)
+
+        workpiece = get_object_or_404(
+            Workpiece,
+            id=request_serializers.validated_data['workpiece_id'],
+        )
+        workpiece.raw_joins = request_serializers.validated_data['raw_joins']
+        workpiece.save()
+        response_serializer = WorkpieceSerializer(instance=workpiece)
+        return Response(response_serializer.data)

@@ -22,6 +22,9 @@ class WorkpieceSerializer(serializers.ModelSerializer):
                   'name_of_dataset',
                   'parental_datasets',
                   'status',
-                  'new_features',
-                  'aggregation',
+                  'raw_joins',
+                  'joins',
+                  'raw_features',
+                  'features',
+                  'limits',
                   'datasamples')

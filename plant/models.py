@@ -28,12 +28,12 @@ class WorkpiecePricing(models.Model):
 
 
 class DataSampling(models.Model):
-    workpiece = models.ForeignKey('plant.Workpiece', on_delete=models.CASCADE)
-    dataset = models.ForeignKey('stock.Dataset', on_delete=models.CASCADE)
-    fields = models.JSONField()
-    filtering = models.JSONField()
-    aggregation = models.JSONField()
-    is_active = models.BooleanField()
+    workpiece = models.ForeignKey('plant.Workpiece', on_delete=models.CASCADE, related_name='datasamples')
+    dataset = models.ForeignKey('stock.Dataset', on_delete=models.CASCADE, related_name='datasamples')
+    fields = models.JSONField(null=True, blank=True)
+    filtering = models.JSONField(null=True, blank=True)
+    aggregation = models.JSONField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

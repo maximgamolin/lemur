@@ -1,0 +1,73 @@
+.searchInputRow {
+    margin: 32px 0 40px;
+}
+.searchWrapper {
+    position: relative;
+}
+.searchInput {
+    width: 100%;
+    line-height: 24px !important;
+    font-size: 16px !important;
+    border: 1px solid #B1B5BB !important;
+    border-radius: 4px !important;
+    color: #000 !important;
+    padding: 8px 100px 8px 50px !important;
+    box-sizing: border-box !important;
+}
+.searchInput::placeholder {
+    color: #B1B5BB;
+}
+.searchIcon {
+    position: absolute;
+    top: 12px;
+    left: 18px;
+}
+.filterWrapper {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+.filterWrapper img {
+    vertical-align: baseline;
+}
+.filterWrapper button {
+    background: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 4px;
+    margin-left: 15px;
+    font-weight: 300;
+    font-size: 16px;
+    vertical-align: super;
+    line-height: 24px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+.filterWrapper button:hover {
+    background: #eee;
+}
+.tagsWrapper {
+    margin-top: 16px;
+}
+.tagsWrapper button {
+    margin-right: 16px;
+    background: none;
+    border-radius: 4px;
+    border: 1px solid #000;
+    box-shadow: none;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 4px 8px;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+.tagsWrapper button:hover {
+    background: #eee;
+}
+
+.datasetList {
+    margin-top: 24px;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}

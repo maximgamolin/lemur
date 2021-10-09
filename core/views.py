@@ -4,6 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.views.generic import TemplateView
+
 from core.models import SchemaBlock
 
 
@@ -47,5 +49,9 @@ class SchemaBlockView(ListAPIView):
         return SchemaBlock.objects.all()
 
     serializer_class = SchemaBlockSerializer
+
+
+class PageView(TemplateView):
+    template_name = 'core/index.html'
 
 

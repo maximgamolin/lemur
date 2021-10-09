@@ -1,0 +1,52 @@
+.text {
+    font-weight: 300;
+}
+
+.wrapper {
+    height: 260px;
+    border: 1px solid #B1B5BB;
+    box-sizing: border-box;
+    border-radius: 4px;
+    position: relative;
+}
+.content {
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border-top: 1px solid #B1B5BB;
+}
+
+.img {
+    height: 90px;
+    width: 100%;
+}
+
+.info {
+    margin: 8px 0;
+}
+.info .text {
+    margin: 4px 0;
+    font-weight: 300;
+}
+.info img {
+    vertical-align: sub;
+    margin-right: 4px;
+}
+
+.descr {
+    height: 48px;
+    overflow: hidden;
+}
+
+.addIcon {
+    z-index: 10;
+    opacity: .5;
+    cursor: pointer;
+    position: absolute;
+    padding: 8px;
+    top: 0;
+    right: 0;
+    transition: all .2s ease-in-out;
+}
+.addIcon:hover {
+    opacity: 1;
+}

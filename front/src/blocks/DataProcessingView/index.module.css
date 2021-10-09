@@ -1,0 +1,46 @@
+.wrapper {
+    width: 100%;
+    height: 100vh;
+}
+
+.toolsMenu {
+    background: #eee;
+    padding: 10px;
+    display: flex;
+}
+.toolsButton {
+    margin-right: 15px;
+    border-radius: 0;
+}
+.toolsButton button, .toolsButton {
+    background: #3a85ff !important;
+    border-color: #3a85ff !important;
+    font-size: 12px;
+    box-shadow: none !important;
+}
+.toolsButton .dropdown-menu {
+    font-size: 12px;
+    padding: 3px 5px;
+}
+
+.variableNode {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    background: #3a85ff;
+    display: flex;
+}
+.variableInput {
+    margin: auto 5px;
+    height: 20px;
+    width: 75%;
+    border: none;
+    font-size: 13px;
+}
+.variablePort {
+    width: 8px;
+    height: 12px;
+    position: absolute;
+    right: 0;
+    top: 13px;
+}

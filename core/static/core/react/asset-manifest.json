@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a2e47e8e.chunk.css",
+    "main.js": "/static/js/main.94f04b6c.chunk.js",
+    "main.js.map": "/static/js/main.94f04b6c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.41cb235e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.41cb235e.js.map",
+    "static/css/2.c1256375.chunk.css": "/static/css/2.c1256375.chunk.css",
+    "static/js/2.274c91e9.chunk.js": "/static/js/2.274c91e9.chunk.js",
+    "static/js/2.274c91e9.chunk.js.map": "/static/js/2.274c91e9.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.c1256375.chunk.css.map": "/static/css/2.c1256375.chunk.css.map",
+    "static/css/main.a2e47e8e.chunk.css.map": "/static/css/main.a2e47e8e.chunk.css.map",
+    "static/js/2.274c91e9.chunk.js.LICENSE.txt": "/static/js/2.274c91e9.chunk.js.LICENSE.txt",
+    "static/media/common.css": "/static/media/VTBGroupUI-Regular.fd598e3c.ttf",
+    "static/media/add.f01ab0bf.svg": "/static/media/add.f01ab0bf.svg",
+    "static/media/clock.bb84dd53.svg": "/static/media/clock.bb84dd53.svg",
+    "static/media/logo.24a18043.svg": "/static/media/logo.24a18043.svg",
+    "static/media/owner.be8961c9.svg": "/static/media/owner.be8961c9.svg",
+    "static/media/placeholder.39978fe0.svg": "/static/media/placeholder.39978fe0.svg",
+    "static/media/placeholder.c9d718fd.svg": "/static/media/placeholder.c9d718fd.svg",
+    "static/media/remove.491bcb35.svg": "/static/media/remove.491bcb35.svg",
+    "static/media/search.7ea9ee1e.svg": "/static/media/search.7ea9ee1e.svg",
+    "static/media/settings.b26be83e.svg": "/static/media/settings.b26be83e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.41cb235e.js",
+    "static/css/2.c1256375.chunk.css",
+    "static/js/2.274c91e9.chunk.js",
+    "static/css/main.a2e47e8e.chunk.css",
+    "static/js/main.94f04b6c.chunk.js"
+  ]
+}

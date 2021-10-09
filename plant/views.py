@@ -13,7 +13,8 @@ from plant.cases.create_data_sample import CreateDataSampleService, \
 from plant.cases.init_workpiece import InitWorkpieceService
 from plant.models import Workpiece, WorkpiecePricing
 from plant.serializers import WorkpieceSerializer, WorkpiecePricingSerializer
-from stock.models import Dataset
+from stock.models import Dataset, PricingDataset
+from stock.serializers import DatasetSerializer
 
 
 class InitWorkpieceView(APIView):
@@ -243,10 +244,18 @@ class SetWorkpiecePricingView(CreateAPIView):
         return Response(serializer.data)
 
 
-class CalculateResultDatasetPrelimPrice(serializers.Serializer):
+class CalculateResultDatasetPrelimPriceView(APIView):
 
     class CalculateResultDatasetPrelimSerializer(serializers.Serializer):
         workpiece_id = serializers.IntegerField(min_value=1)
+
+    class PricingDatasetSerializer(serializers.ModelSerializer):
+
+        dataset = DatasetSerializer()
+
+        class Meta:
+            model = PricingDataset
+            fields = '__all__'
 
     def get(self, request, *args, **kwargs):
         qs = Workpiece.objects \
@@ -255,4 +264,18 @@ class CalculateResultDatasetPrelimPrice(serializers.Serializer):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        pass
+        request_serializers = self.CalculateResultDatasetPrelimSerializer(data=request.data)
+        request_serializers.is_valid(raise_exception=True)
+
+        workpiece: Workpiece = get_object_or_404(
+            Workpiece,
+            id=request_serializers.validated_data['workpiece_id'],
+        )
+        pricing = PricingDataset.objects.filter(
+            dataset_id__in=workpiece.parental_datasets.values_list('id', flat=True),
+            is_free=False,
+        )
+        return Response(self.PricingDatasetSerializer(instance=pricing, many=True).data)
+
+
+

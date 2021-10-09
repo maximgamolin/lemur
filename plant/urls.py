@@ -12,5 +12,5 @@ urlpatterns = [
     path('add-limits/', views.AddLimitsView.as_view()),
     path('create-task-text/', views.CreateTaskTextView.as_view()),
     path('set-workpice-pricing/', views.SetWorkpiecePricingView.as_view()),
-
+    path('calculite-workpice-dataset-prices/', views.CalculateResultDatasetPrelimPriceView.as_view())
 ]

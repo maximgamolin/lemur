@@ -1,16 +1,10 @@
 from rest_framework.generics import ListAPIView
+
 from stock.cases import dataset_access
-from rest_framework import serializers
-from stock.models import Dataset
+from stock.serializers import DatasetSerializer
 
 
 class DatasetListView(ListAPIView):
-
-    class DatasetSerializer(serializers.ModelSerializer):
-
-        class Meta:
-            model = Dataset
-            fields = '__all__'
 
     serializer_class = DatasetSerializer
 

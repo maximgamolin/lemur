@@ -1,6 +1,10 @@
 from enum import IntEnum
 from typing import Iterable, Tuple
 
+LOCALIZATION = {
+    'MATH': 'Математика',
+    'STRINGS': 'Строки'
+}
 
 class SchemaBlockCategory(IntEnum):
 
@@ -9,7 +13,7 @@ class SchemaBlockCategory(IntEnum):
 
     @classmethod
     def choices(cls) -> Iterable[Tuple[int, str]]:
-        return ((key.value, key.name) for key in cls)
+        return ((key.value, LOCALIZATION[key.name]) for key in cls)
 
 
 class SchemaBlockType(IntEnum):

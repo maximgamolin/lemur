@@ -49,9 +49,12 @@ class SchemaBlockView(ListAPIView):
         return SchemaBlock.objects.all()
 
     serializer_class = SchemaBlockSerializer
+<<<<<<< HEAD
 
 
 class PageView(TemplateView):
     template_name = 'core/index.html'
 
 
+=======
+>>>>>>> ba7ecbe756533b95079566efd4b03f0689b4d003

@@ -12,3 +12,8 @@ class UserAdmin(admin.ModelAdmin):
 class UserPaymentAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', )
     list_display = ('user', 'amount', 'currency')
+
+
+@admin.register(models.SchemaBlock)
+class SchemaBlockAdmin(admin.ModelAdmin):
+    pass

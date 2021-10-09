@@ -1,4 +1,5 @@
 from django.db import models
+
 from plant.consts import WorkpieceStatus, JoinType
 from stock.consts import DatasetPriceCurrency
 
@@ -7,13 +8,13 @@ class Workpiece(models.Model):
     author = models.ForeignKey('core.User', on_delete=models.CASCADE)
     name_of_dataset = models.CharField(max_length=255)
     parental_datasets = models.ManyToManyField('stock.Dataset')
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.PositiveSmallIntegerField(choices=WorkpieceStatus.choices(), default=WorkpieceStatus.CREATED.value)
-    new_features = models.JSONField()
-    aggregation = models.JSONField()
-    limits = models.JSONField()
+    new_features = models.JSONField(null=True, blank=True)
+    aggregation = models.JSONField(null=True, blank=True)
+    limits = models.JSONField(null=True, blank=True)
 
 
 class WorkpiecePricing(models.Model):

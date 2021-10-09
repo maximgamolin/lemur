@@ -1,0 +1,31 @@
+# curl 'http://localhost:8000/api/v1/plant/init-workpiece/' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0' -H 'Accept: text/html; q=1.0, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' --compressed -H 'Referer: http://localhost:8000/api/v1/plant/init-workpiece/' -H 'Content-Type: application/json' -H 'X-CSRFTOKEN: alGr5FRV7l4jv8yucUpoynLgZLk7s39ncrVV5KMZFOPoGRr5t45Wk00D84MgugFv' -H 'X-Requested-With: XMLHttpRequest' -H 'Origin: http://localhost:8000' -H 'Connection: keep-alive' -H 'Cookie: csrftoken=NhIBa3R3JgJ4ZYr2UcdkrQNROtwYeSwCPnX5a8M7hJu9aHkDbmTSdt2eXMY7g52K; io=w31KXT-RxKmQSqZJAAAA; _xsrf=2|86a004da|8494876813ac1741b6d24be08fe3b575|1633284712; username-localhost-8888="2|1:0|10:1633285767|23:username-localhost-8888|44:NjlkMTViM2ZkN2Y4NDYyYWE4ZmVjZTY5YTQwOWFlOWE=|27fea842c1c1ab0622aa67c685af4e30a30a5e5453fb8ba128582aa4e6312b03"; djdt=hide; sessionid=ns6rbvq8o4irdwnwh165gmy7q94ej70q' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Content-Length: 0'
+POST http://localhost:8000/api/v1/plant/init-workpiece/
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0
+Accept: text/html; q=1.0, */*
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3
+Referer: http://localhost:8000/api/v1/plant/init-workpiece/
+X-CSRFTOKEN: alGr5FRV7l4jv8yucUpoynLgZLk7s39ncrVV5KMZFOPoGRr5t45Wk00D84MgugFv
+X-Requested-With: XMLHttpRequest
+Origin: http://localhost:8000
+Connection: keep-alive
+Cookie: csrftoken=NhIBa3R3JgJ4ZYr2UcdkrQNROtwYeSwCPnX5a8M7hJu9aHkDbmTSdt2eXMY7g52K; io=w31KXT-RxKmQSqZJAAAA; _xsrf=2|86a004da|8494876813ac1741b6d24be08fe3b575|1633284712; username-localhost-8888="2|1:0|10:1633285767|23:username-localhost-8888|44:NjlkMTViM2ZkN2Y4NDYyYWE4ZmVjZTY5YTQwOWFlOWE=|27fea842c1c1ab0622aa67c685af4e30a30a5e5453fb8ba128582aa4e6312b03"; djdt=hide; sessionid=ns6rbvq8o4irdwnwh165gmy7q94ej70q
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+Content-Length: 0
+Content-Type: application/json
+
+###
+
+# curl 'http://localhost:8000/api/v1/plant/init-workpiece/' -X POST -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:92.0) Gecko/20100101 Firefox/92.0' -H 'Accept: text/html; q=1.0, */*' -H 'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3' --compressed -H 'Referer: http://localhost:8000/api/v1/plant/init-workpiece/' -H 'Content-Type: application/json' -H 'X-CSRFTOKEN: alGr5FRV7l4jv8yucUpoynLgZLk7s39ncrVV5KMZFOPoGRr5t45Wk00D84MgugFv' -H 'X-Requested-With: XMLHttpRequest' -H 'Origin: http://localhost:8000' -H 'Connection: keep-alive' -H 'Cookie: csrftoken=NhIBa3R3JgJ4ZYr2UcdkrQNROtwYeSwCPnX5a8M7hJu9aHkDbmTSdt2eXMY7g52K; io=w31KXT-RxKmQSqZJAAAA; _xsrf=2|86a004da|8494876813ac1741b6d24be08fe3b575|1633284712; username-localhost-8888="2|1:0|10:1633285767|23:username-localhost-8888|44:NjlkMTViM2ZkN2Y4NDYyYWE4ZmVjZTY5YTQwOWFlOWE=|27fea842c1c1ab0622aa67c685af4e30a30a5e5453fb8ba128582aa4e6312b03"; djdt=hide; sessionid=ns6rbvq8o4irdwnwh165gmy7q94ej70q' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Content-Length: 0'
+POST {{host}}/api/v1/plant/init-workpiece/
+Cookie: Cookie: {{cookie}}
+X-CSRFTOKEN: alGr5FRV7l4jv8yucUpoynLgZLk7s39ncrVV5KMZFOPoGRr5t45Wk00D84MgugFv
+X-Requested-With: XMLHttpRequest
+Content-Type: application/json
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+
+###
+

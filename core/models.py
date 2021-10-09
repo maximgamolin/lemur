@@ -15,3 +15,7 @@ class UserPayment(models.Model):
         choices=DatasetPriceCurrency.choices(),
         default=DatasetPriceCurrency.RUB.value
     )
+
+
+# class UserPaymentTransaction(models.Model):
+#     pass

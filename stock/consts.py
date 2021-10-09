@@ -20,3 +20,13 @@ class DatasetPriceCurrency(IntEnum):
     def choices(cls) -> Iterable[Tuple[int, str]]:
         return ((key.value, key.name) for key in cls)
 
+
+class PermissionsType(IntEnum):
+
+    ONLY = 0
+    EXCLUDE = 1
+
+    @classmethod
+    def choices(cls) -> Iterable[Tuple[int, str]]:
+        return ((key.value, key.name) for key in cls)
+

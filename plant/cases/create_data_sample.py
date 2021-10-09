@@ -22,7 +22,8 @@ class CreateDataSampleService:
             dataset=self._dataset,
             raw_filtering=self._raw_operations.filtering,
             raw_aggregation=self._raw_operations.aggregation,
-            raw_features=self._raw_operations.features
+            raw_features=self._raw_operations.features,
+            fields=self._dataset.fields
         )
 
     def _raw_filters_to_filters(self):

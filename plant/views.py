@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from market.models import Collection
+from plant.cases.conver_dataset_to_data_sample import ConvertDatasetsToDataSamplesService
 from plant.cases.create_data_sample import CreateDataSampleService, \
     RawOperations
 from plant.cases.init_workpiece import InitWorkpieceService
@@ -95,5 +96,31 @@ class CreateDataSampleView(APIView):
             raw_operations
         )
         workpiece = service.create_data_sample()
+        response_serializer = WorkpieceSerializer(instance=workpiece)
+        return Response(response_serializer.data)
+
+
+class MoveDatasetToDataSampleView(APIView):
+
+    class MoveDatasetToDataSampleSerializer(serializers.Serializer):
+        datasets_ids = serializers.ListField(child=serializers.IntegerField(min_value=1))
+        workpiece_id = serializers.IntegerField(min_value=1)
+
+    def get(self, request, *args, **kwargs):
+        qs = Workpiece.objects\
+            .filter(author=self.request.user, is_active=True)
+        serializer = WorkpieceSerializer(instance=qs, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        request_serializers = self.MoveDatasetToDataSampleSerializer(data=request.data)
+        request_serializers.is_valid(raise_exception=True)
+        datasets = Dataset.objects.filter(id__in=request_serializers.validated_data['datasets_ids'])
+        workpiece = get_object_or_404(
+            Workpiece,
+            id=request_serializers.validated_data['workpiece_id'],
+        )
+        service = ConvertDatasetsToDataSamplesService(workpiece, datasets)
+        workpiece = service.convert()
         response_serializer = WorkpieceSerializer(instance=workpiece)
         return Response(response_serializer.data)

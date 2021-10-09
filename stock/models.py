@@ -1,4 +1,5 @@
 from django.db import models
+
 from stock.consts import DatasetStatus, DatasetPriceCurrency, PermissionsType
 
 
@@ -6,16 +7,16 @@ class Dataset(models.Model):
 
     name = models.CharField(max_length=255)
     slug = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     author = models.ForeignKey('core.User', on_delete=models.SET_NULL, null=True, blank=True)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     external_id = models.CharField(max_length=255)
     build_description = models.JSONField(blank=True, null=True)
     status = models.PositiveSmallIntegerField(choices=DatasetStatus.choices(), default=DatasetStatus.CREATED.value)
-    fields = models.JSONField()
-    cached_preview = models.TextField()
+    fields = models.JSONField(null=True, blank=True)
+    cached_preview = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"Dataset {self.id} - {self.name}"

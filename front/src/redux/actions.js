@@ -25,6 +25,18 @@ const actions = store => ({
             })
             .catch((err) => toast.error('Не удалось загрузить датасеты'));
     },
+    loadProfile: async (state) => {
+        api.get(api.URLS.me)
+            .then((res) => {
+                if (res)
+                    store.setState({ profile: res });
+                else
+                    toast.error('Не удалось загрузить профиль');
+            })
+            .catch((err) => toast.error('Не удалось загрузить профиль'));
+    }
 });
+
+
 
 export default actions;

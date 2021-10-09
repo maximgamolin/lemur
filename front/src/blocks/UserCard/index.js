@@ -4,9 +4,11 @@ import classNames from "classnames";
 import styles from './index.module.css';
 import Heading from "../../typography/Heading";
 import avatarPlaceholderIcon from './placeholder.svg';
+import {connect} from "redux-zero/react";
+import actions from "../../redux/actions";
 
 
-function UserCard({ onClick, className, avatar, ...rest }) {
+function UserCard({ onClick, className, avatar, profile, ...rest }) {
     return (
         <div onClick={onClick} className={classNames(className, styles.wrapper)} {...rest}>
             <div className={styles.avatar}>
@@ -20,4 +22,6 @@ function UserCard({ onClick, className, avatar, ...rest }) {
     )
 }
 
-export default UserCard;
+const mapToProps = ({profile}) => ({profile});
+
+export default connect(mapToProps, actions)(UserCard);

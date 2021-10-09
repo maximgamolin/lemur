@@ -6,6 +6,7 @@ const api = {
     URLS: {
         getDatasets: 'stock/datasets/',
         addToCollection: 'market/collection-items/',
+        me: 'core/me/'
     },
 
     formatUrl: function () {
@@ -24,6 +25,7 @@ const api = {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                 'X-CSRFToken': cookies.get('csrftoken'),
             },
+            credentials: "same-origin",
             body: JSON.stringify(data),
         })
             .then((res) => res.json());
@@ -36,6 +38,7 @@ const api = {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                 'X-CSRFToken': cookies.get('csrftoken'),
             },
+            credentials: "same-origin"
         })
             .then((res) => res.json());
     }

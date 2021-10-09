@@ -1,6 +1,7 @@
 from django.db import models
-from stock.consts import DatasetStatus, DatasetPriceCurrency
+
 from market.consts import UserPaymentStatus
+from stock.consts import DatasetPriceCurrency
 
 
 class Collection(models.Model):
@@ -8,8 +9,9 @@ class Collection(models.Model):
 
 
 class CollectionItem(models.Model):
-    collection = models.ForeignKey('market.Collection', on_delete=models.CASCADE, related_name='collection_item')
+    collection = models.ForeignKey('market.Collection', on_delete=models.CASCADE, related_name='collection_items')
     dataset = models.ForeignKey('stock.Dataset', on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
 
 
 class UserPurchases(models.Model):

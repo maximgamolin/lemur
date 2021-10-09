@@ -8,5 +8,5 @@ urlpatterns = [
     path('create-data-peace/', views.CreateDataSampleView.as_view()),
     path('move-datasets-to-data-sample/', views.MoveDatasetToDataSampleView.as_view()),
     path('add-joins/', views.AddWorkpieceJoinsView.as_view()),
-
+    path('add-features/', views.AddWorkpieceFeatures.as_view()),
 ]

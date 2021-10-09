@@ -12,6 +12,7 @@ class Workpiece(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     status = models.PositiveSmallIntegerField(choices=WorkpieceStatus.choices(), default=WorkpieceStatus.CREATED.value)
     new_features = models.JSONField()
+    aggregation = models.JSONField()
     limits = models.JSONField()
 
 
@@ -30,6 +31,7 @@ class DataSampling(models.Model):
     dataset = models.ForeignKey('stock.Dataset', on_delete=models.CASCADE)
     fields = models.JSONField()
     filtering = models.JSONField()
+    aggregation = models.JSONField()
     is_active = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -37,8 +39,12 @@ class DataSampling(models.Model):
 
 class DataSamplingUnionParent(models.Model):
     workpiece = models.ForeignKey('plant.Workpiece', on_delete=models.CASCADE)
-    parental_data_sample = models.ForeignKey('plant.DataSampling', on_delete=models.CASCADE)
-    child_data_sample = models.ForeignKey('plant.DataSampling', on_delete=models.CASCADE)
+    parental_data_sample = models.ForeignKey(
+        'plant.DataSampling', on_delete=models.CASCADE, related_name='parental_sample'
+    )
+    child_data_sample = models.ForeignKey(
+        'plant.DataSampling', on_delete=models.CASCADE, related_name='child_sample'
+    )
     parental_column_name = models.CharField(max_length=255)
     child_column_name = models.CharField(max_length=255)
     join_type = models.PositiveSmallIntegerField(choices=JoinType.choices(), default=JoinType.INNER.value)

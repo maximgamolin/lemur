@@ -1,6 +1,6 @@
 from django.db import models
 
-from plant.consts import WorkpieceStatus, JoinType
+from plant.consts import WorkpieceStatus
 from stock.consts import DatasetPriceCurrency
 
 
@@ -12,8 +12,10 @@ class Workpiece(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.PositiveSmallIntegerField(choices=WorkpieceStatus.choices(), default=WorkpieceStatus.CREATED.value)
-    new_features = models.JSONField(null=True, blank=True)
-    aggregation = models.JSONField(null=True, blank=True)
+    raw_filtering = models.JSONField(null=True, blank=True)
+    filtering = models.JSONField(null=True, blank=True)
+    raw_features = models.JSONField(null=True, blank=True)
+    features = models.JSONField(null=True, blank=True)
     limits = models.JSONField(null=True, blank=True)
 
 
@@ -41,16 +43,4 @@ class DataSampling(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
-class DataSamplingUnionParent(models.Model):
-    workpiece = models.ForeignKey('plant.Workpiece', on_delete=models.CASCADE)
-    parental_data_sample = models.ForeignKey(
-        'plant.DataSampling', on_delete=models.CASCADE, related_name='parental_sample'
-    )
-    child_data_sample = models.ForeignKey(
-        'plant.DataSampling', on_delete=models.CASCADE, related_name='child_sample'
-    )
-    parental_column_name = models.CharField(max_length=255)
-    child_column_name = models.CharField(max_length=255)
-    join_type = models.PositiveSmallIntegerField(choices=JoinType.choices(), default=JoinType.INNER.value)
 

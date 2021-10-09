@@ -17,7 +17,3 @@ class WorkpiecePricingAdmin(admin.ModelAdmin):
 class DataSamplingAdmin(admin.ModelAdmin):
     pass
 
-
-@admin.register(models.DataSamplingUnionParent)
-class DataSamplingUnionParentAdmin(admin.ModelAdmin):
-    pass

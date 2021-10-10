@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import {Provider} from "redux-zero/react";
-import {Toaster} from 'react-hot-toast';
-import {Provider as ReakitProvider} from "reakit";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Provider } from "redux-zero/react";
+import { Button } from "reakit/Button";
+import { Toaster } from 'react-hot-toast';
+import { Provider as ReakitProvider } from "reakit";
 import * as system from "reakit-system-bootstrap";
 
 import DatasetListPage from '../pages/DatasetListPage';
@@ -17,7 +18,8 @@ import actions from "../redux/actions";
 
 
 function App({ ...rest }) {
-    useEffect(()=>{
+    useEffect(() => {
+        console.log(1);
         actions().loadProfile(store);
     }, [])
     return (
@@ -28,6 +30,9 @@ function App({ ...rest }) {
                         <div className={styles.sideMenu}>
                             <Link to="/"><img className={styles.logo} src={logo} alt="Логотип"/></Link>
                             <UserCard className={styles.userCard}/>
+
+                            <Link to="/"><Button className={styles.menuButton} >Все датасеты</Button></Link>
+                            <Link to="/collections/"><Button className={styles.menuButton}>Коллекциии</Button></Link>
                         </div>
 
                         <main className={styles.mainBlock}>

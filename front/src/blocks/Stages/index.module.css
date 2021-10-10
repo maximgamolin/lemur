@@ -1,0 +1,43 @@
+.stages {
+    display: flex;
+    margin-bottom: 64px;
+}
+.stage {
+    position: relative;
+    height: 94px;
+    background: #3a85ff;
+    margin-left: 100px;
+    display: flex;
+    opacity: .5;
+    width: 100%;
+}
+.stage:first-child {
+    margin-left: 50px;
+}
+.activeStage {
+    opacity: 1;
+}
+.stageInner {
+    margin: auto;
+    line-height: 18px;
+    font-size: 14px;
+    color: #fff;
+}
+.stage:before,
+.stage:after {
+    content: '';
+    background: url('./arrow.svg');
+    height: 94px;
+    width: 50px;
+    display: block;
+    position: absolute;
+    top: 0;
+}
+.stage:before {
+    left: -50px;
+    background-position: left;
+}
+.stage:after {
+    right: -50px;
+    background-position: right;
+}

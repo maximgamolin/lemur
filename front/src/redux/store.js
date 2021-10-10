@@ -46,7 +46,6 @@ const initialState = {
         },
     ],
     allDatasets: [],
-    profile: {}
 };
 
 const store = createStore(initialState);

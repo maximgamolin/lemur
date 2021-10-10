@@ -9,6 +9,7 @@ import {
 } from "reakit/Form";
 import { Input } from "reakit/Input";
 import Heading from "../../../typography/Heading";
+import Stages from "../../../blocks/Stages";
 
 
 function CreateSelection({ ...rest }) {
@@ -29,7 +30,8 @@ function CreateSelection({ ...rest }) {
 
     return (
         <>
-            <Heading size="h1">Создание нового датасета</Heading>
+            <Stages stages={['Создание нового датасета', 'Подготовка выборки', 'Объединение выборок', 'Экспорт']}
+                    activeNum={0} />
 
             <Form style={{ marginTop: '32px' }} {...form}>
                 <FormLabel {...form} name="name">Названия новой выборки</FormLabel>

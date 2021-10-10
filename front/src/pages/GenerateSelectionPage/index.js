@@ -8,16 +8,20 @@ import PrepareSelection from './PrepareSelection';
 function GenerateSelectionPage({ ...rest }) {
     let match = useRouteMatch();
 
+    console.log(match);
+
     return (
-        <Switch>
-            <Route path={`${match.url}/prepare`}>
-                <PrepareSelection/>
-            </Route>
-            <Route path={`${match.url}`}>
-                <CreateSelection/>
-            </Route>
-        </Switch>
-    )
+        <div>
+            <Switch>
+                <Route path={`${match.url}/prepare`}>
+                    <PrepareSelection/>
+                </Route>
+                <Route path={`${match.url}`}>
+                    <CreateSelection/>
+                </Route>
+            </Switch>
+        </div>
+    );
 }
 
 export default GenerateSelectionPage;

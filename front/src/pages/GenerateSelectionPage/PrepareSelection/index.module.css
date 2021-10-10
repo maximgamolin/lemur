@@ -3,11 +3,15 @@
     display: flex;
 }
 
+.isNew {
+
+}
 .list {
     background: #eee;
     width: 100%;
     border-radius: 4px;
     min-height: 256px;
+    position: relative;
 }
 .list:first-child {
     margin-right: 64px;
@@ -55,7 +59,13 @@
 }
 
 .editor {
-    height: 600px;
+    height: 450px;
     border: 1px solid #eee;
     margin-top: -17px;
+}
+
+.heading {
+    position: absolute;
+    top: -25px;
+    left: 5px;
 }

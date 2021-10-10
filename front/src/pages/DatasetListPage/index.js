@@ -14,14 +14,13 @@ import DatasetPreview from "../../blocks/DatasetPreview";
 
 function DatasetListPage({ availableTags, addToCollection, allDatasets, loadDataset, ...rest }) {
     function handleAddDataset(id) {
+        console.log(id);
         addToCollection(id);
     }
 
     useEffect(() => {
         loadDataset();
     }, []);
-
-    console.log(allDatasets);
 
     return (
         <>

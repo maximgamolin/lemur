@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab";
 import { connect } from "redux-zero/react";
 
@@ -9,7 +9,9 @@ import removeIcon from './remove.svg';
 import classNames from "classnames";
 
 import DataProcessingView from './../../../blocks/DataProcessingView';
+import Stages from "../../../blocks/Stages";
 import actions from "../../../redux/actions";
+import { Button } from "reakit/Button";
 
 
 function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
@@ -19,7 +21,15 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
     const [selectedSelection, setSelectedSelection] = useState();
     const [currentOperators, setCurrentOperators] = useState([...dataOperators.common, ...dataOperators.filter]);
 
+    const newSelectionRef = useRef();
+
     const tab = useTabState({ selectedId: "filterTab" });
+
+    useEffect(() => {
+        const node = document.querySelector(`.${styles.isNew} input`);
+        if (node)
+            node.select();
+    }, [selections]);
 
     function handleChangeSelectionName(selection, e) {
         selection.name = e.target.value;
@@ -31,6 +41,7 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
             id: selectionId,
             name: dataset.name,
             dataset: [dataset],
+            is_new: true,
         }]);
         setSelectionId(selectionId + 1);
     }
@@ -39,21 +50,21 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
         e.stopPropagation()
         setSelections([...selections.filter((x) => x.id !== id)]);
         if (selectedSelection && id === selectedSelection.id)
-            setSelectedSelection({});
+            setSelectedSelection();
     }
 
     function handleSelectSelection(selection) {
         setSelectedSelection(selectedSelection && selection.id === selectedSelection.id ? -1 : selection);
     }
 
-    console.log(currentOperators);
-
     return (
         <>
-            <Heading size="h1">Подготовка выборок</Heading>
+            <Stages stages={['Создание нового датасета', 'Подготовка выборки', 'Объединение выборок', 'Экспорт']}
+                    activeNum={1} />
 
             <div className={styles.wrapper}>
                 <div className={styles.list}>
+                    <Heading className={styles.heading} size="h3">Датасеты</Heading>
                     {datasets.map((item) => (
                         <div onClick={() => handleMoveToSelection(item)} className={styles.datasetPreview}>
                             <span>{item.name}</span>
@@ -62,13 +73,18 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
                     ))}
                 </div>
                 <div className={styles.list}>
+                    <Heading className={styles.heading} size="h3">Выборки</Heading>
                     {selections.sort((a, b) => a.id < b.id).map((item) => {
+                        const is_new = item.is_new;
+                        item.is_new = false;
                         return (
                             <div onClick={() => handleSelectSelection(item)}
                                  className={classNames(styles.datasetPreview, styles.selectionPreview, {
-                                     [styles.previewActive]: selectedSelection && item.id === selectedSelection.id
+                                     [styles.previewActive]: selectedSelection && item.id === selectedSelection.id,
+                                     [styles.isNew]: is_new,
                                  })}>
-                                <input type="text" value={item.name} onClick={(e) => e.preventDefault()}
+                                <input type="text" value={item.name}
+                                       onClick={(e) => e.preventDefault()}
                                        onChange={(e) => handleChangeSelectionName(item, e)}/>
                                 <img src={removeIcon} alt=""
                                      onClick={(e) => handleDeleteSelection(e, item.id)}/>
@@ -97,6 +113,8 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
                     </div>
                 </>
             )}
+
+            <Button>Продолжить</Button>
         </>
     )
 }

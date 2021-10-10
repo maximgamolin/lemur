@@ -227,9 +227,22 @@ class CreateTaskTextView(APIView):
             Workpiece,
             id=request_serializers.validated_data['workpiece_id'],
         )
-        # TODO процессинг, докинуть прайсинг is_free, если никакого нет
-        response_serializer = WorkpieceSerializer(instance=workpiece)
-        return Response(response_serializer.data)
+        result = {
+            "name": workpiece.name_of_dataset,
+            "datasamples":[],
+            "join": workpiece.raw_joins
+        }
+        datasamples = workpiece.datasamples.all()
+        for datasample in datasamples:
+            i = {
+                "filtering": datasample.raw_filtering,
+                "aggregations": datasample.raw_aggregation,
+                "features": datasample.raw_features
+            }
+            result['datasamples'].append(i)
+        workpiece.task = result
+
+        return Response(result)
 
 
 class SetWorkpiecePricingView(CreateAPIView):

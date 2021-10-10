@@ -17,6 +17,7 @@ class Workpiece(models.Model):
     raw_features = models.JSONField(null=True, blank=True)
     features = models.JSONField(null=True, blank=True)
     limits = models.JSONField(null=True, blank=True)
+    task = models.JSONField(null=True, blank=True)
 
 
 class WorkpiecePricing(models.Model):

@@ -1,0 +1,5 @@
+.continueWrapper {
+    display: flex;
+    justify-content: end;
+    margin: 10px 0;
+}

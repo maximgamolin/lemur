@@ -10,6 +10,7 @@ const api = {
         initWorkpiece: 'plant/init-workpiece/',
         getActiveWorkpiece: 'plant/last-workpiece/',
         createDataPeace: 'plant/create-data-peace/',
+        createTask: 'plant/calculite-workpice-dataset-prices/',
     },
 
     formatUrl: function () {

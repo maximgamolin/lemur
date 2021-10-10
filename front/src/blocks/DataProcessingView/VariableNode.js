@@ -41,13 +41,14 @@ export class VariableNodeModel extends NodeModel {
     constructor() {
         super({
             type: 'variable',
-            test: 'test',
+            name: 'variable'
         });
         this.addPort(new VariablePortModel(PortModelAlignment.RIGHT, false));
         this.addPort(new VariablePortModel(PortModelAlignment.LEFT, true));
     }
 
     serialize() {
+        console.log(this.value);
         return {
             ...super.serialize(),
             value: this.value,

@@ -109,6 +109,8 @@ function DataProcessingView({ onChange, className, datasets, operators, addResBl
                 nodes = layer;
         }
 
+        // console.log(links);
+
         res['nodes'] = Object.keys(nodes.models).map((id) => ({
             id: id,
             name: nodes.models[id].name,
@@ -118,12 +120,12 @@ function DataProcessingView({ onChange, className, datasets, operators, addResBl
                 name: port.name,
             })),
         }));
-        res['links'] = Object.keys(nodes.models).map((id) => ({
+        res['links'] = Object.keys(links.models).map((id) => ({
             id: id,
-            source: nodes.models[id].source,
-            sourcePort: nodes.models[id].sourcePort,
-            target: nodes.models[id].target,
-            targetPort: nodes.models[id].targetPort,
+            source: links.models[id].source,
+            sourcePort: links.models[id].sourcePort,
+            target: links.models[id].target,
+            targetPort: links.models[id].targetPort,
         }));
 
         onChange(res);
@@ -152,7 +154,7 @@ function DataProcessingView({ onChange, className, datasets, operators, addResBl
                     </Dropdown>
                 ))}
                 <Button className={styles.toolsButton} onClick={addVariable}>Переменная</Button>
-                <button onClick={dump}>Serialize</button>
+                {/*<button onClick={dump}>Serialize</button>*/}
             </div>
 
             {engine && <CanvasWidget className={styles.wrapper} engine={engine}/>}

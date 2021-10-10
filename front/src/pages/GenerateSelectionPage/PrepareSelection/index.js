@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab";
 import { connect } from "redux-zero/react";
 import toast from 'react-hot-toast';
@@ -21,10 +22,11 @@ function PrepareSelection({ workpiece, dataOperators, ...rest }) {
     const [selectionId, setSelectionId] = useState(0);
     const [selectedSelection, setSelectedSelection] = useState();
     const [currentOperators, setCurrentOperators] = useState([...dataOperators.common, ...dataOperators.filter]);
-
     const [filterData, setFilterData] = useState({});
     const [aggregateData, setAggregateData] = useState({});
     const [featureData, setFeatureData] = useState({});
+
+    const history = useHistory();
 
     const tab = useTabState({ selectedId: "filterTab" });
 
@@ -68,9 +70,9 @@ function PrepareSelection({ workpiece, dataOperators, ...rest }) {
     }
 
     function handleSave(e) {
-        console.log(filterData);
-        console.log(featureData);
-        console.log(aggregateData);
+        // console.log(filterData);
+        // console.log(featureData);
+        // console.log(aggregateData);
         api.post(api.URLS.createDataPeace, {
             name: selectedSelection.name,
             dataset_id: selectedSelection.dataset[0].id,
@@ -87,7 +89,6 @@ function PrepareSelection({ workpiece, dataOperators, ...rest }) {
         if (field in aggregateData)
             return () => setAggregateData([...aggregateData.filter((item) => item !== field)])
         return () => setAggregateData([...aggregateData, field]);
-
     }
 
     return (
@@ -136,7 +137,7 @@ function PrepareSelection({ workpiece, dataOperators, ...rest }) {
                             <Tab {...tab}>Добавление фичей</Tab>
                         </div>
                         <div>
-                            <Button>Продолжить</Button>
+                            <Button onClick={() => history.push('/collections/join/')}>Продолжить</Button>
                             <Button onClick={handleSave} className={styles.saveButton}>Сохранить выборку</Button>
                         </div>
                     </TabList>
@@ -169,7 +170,7 @@ function PrepareSelection({ workpiece, dataOperators, ...rest }) {
                         </TabPanel>
                     </div>
                 </>
-            ) : <Button>Продолжить</Button>}
+            ) : <Button onClick={() => history.push('/collections/join/')}>Продолжить</Button>}
         </>
     )
 }

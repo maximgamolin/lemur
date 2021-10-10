@@ -1,0 +1,14 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 400px;
+}
+.button {
+    margin: auto;
+}
+
+.result {
+    background: #eee;
+    margin: 20px;
+    padding: 10px;
+}

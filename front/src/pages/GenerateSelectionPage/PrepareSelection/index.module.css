@@ -1,5 +1,5 @@
 .wrapper {
-    margin: 48px 0 32px;
+    margin: 48px 0;
     display: flex;
 }
 
@@ -59,13 +59,32 @@
 }
 
 .editor {
-    height: 450px;
+    height: 600px;
     border: 1px solid #eee;
     margin-top: -17px;
+    overflow: hidden;
 }
 
 .heading {
     position: absolute;
     top: -25px;
     left: 5px;
+}
+
+.checkboxWrapper {
+    margin: 10px;
+}
+.checkbox {
+    font-size: 16px;
+    display: block;
+    margin: 10px 0;
+}
+
+.tabHeader {
+    display: flex;
+    justify-content: space-between;
+}
+.saveButton {
+    margin-bottom: 10px;
+    margin-left: 10px;
 }

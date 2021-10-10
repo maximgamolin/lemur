@@ -6,7 +6,10 @@ const api = {
     URLS: {
         getDatasets: 'stock/datasets/',
         addToCollection: 'market/collection-items/',
-        me: 'core/me/'
+        me: 'core/me/',
+        initWorkpiece: 'plant/init-workpiece/',
+        getActiveWorkpiece: 'plant/last-workpiece/',
+        createDataPeace: 'plant/create-data-peace/',
     },
 
     formatUrl: function () {
@@ -22,7 +25,7 @@ const api = {
         return fetch(HOST + url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Content-Type': 'application/json; charset=UTF-8',
                 'X-CSRFToken': cookies.get('csrftoken'),
             },
             credentials: "same-origin",
@@ -35,7 +38,7 @@ const api = {
         return fetch(HOST + url, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Content-Type': 'application/json; charset=UTF-8',
                 'X-CSRFToken': cookies.get('csrftoken'),
             },
             credentials: "same-origin"

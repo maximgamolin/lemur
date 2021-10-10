@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTabState, Tab, TabList, TabPanel } from "reakit/Tab";
 import { connect } from "redux-zero/react";
+import toast from 'react-hot-toast';
 
 import Heading from "../../../typography/Heading";
 import styles from './index.module.css';
@@ -12,16 +13,18 @@ import DataProcessingView from './../../../blocks/DataProcessingView';
 import Stages from "../../../blocks/Stages";
 import actions from "../../../redux/actions";
 import { Button } from "reakit/Button";
+import api from "../../../api";
 
 
-function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
+function PrepareSelection({ workpiece, dataOperators, ...rest }) {
     const [selections, setSelections] = useState([]);
-    const [datasets, setDatasets] = useState(datasetsInCollection);
     const [selectionId, setSelectionId] = useState(0);
     const [selectedSelection, setSelectedSelection] = useState();
     const [currentOperators, setCurrentOperators] = useState([...dataOperators.common, ...dataOperators.filter]);
 
-    const newSelectionRef = useRef();
+    const [filterData, setFilterData] = useState({});
+    const [aggregateData, setAggregateData] = useState({});
+    const [featureData, setFeatureData] = useState({});
 
     const tab = useTabState({ selectedId: "filterTab" });
 
@@ -57,6 +60,36 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
         setSelectedSelection(selectedSelection && selection.id === selectedSelection.id ? -1 : selection);
     }
 
+    function handleChangeOperators(category) {
+        if (category === 'filter')
+            setCurrentOperators([...dataOperators.common, ...dataOperators.filter]);
+        else if (category === 'feature')
+            setCurrentOperators([...dataOperators.common, ...dataOperators.feature]);
+    }
+
+    function handleSave(e) {
+        console.log(filterData);
+        console.log(featureData);
+        console.log(aggregateData);
+        // api.post(api.URLS.createDataPeace, {
+        //     name: selectedSelection.name,
+        //     dataset_id: selectedSelection.dataset[0].id,
+        //     workpiece_id: workpiece.id,
+        //     raw_filtering: filterData,
+        //     raw_features: featureData,
+        //     raw_aggregation: aggregateData,
+        // })
+        //     .then((res) => toast.success('Выборка сохранена!'))
+        //     .catch((res) => toast.error('Ошибка при сохранении выборки'))
+    }
+
+    function handleAggregation(field) {
+        if (field in aggregateData)
+            return () => setAggregateData([...aggregateData.filter((item) => item !== field)])
+        return () => setAggregateData([...aggregateData, field]);
+
+    }
+
     return (
         <>
             <Stages stages={['Создание нового датасета', 'Подготовка выборки', 'Объединение выборок', 'Экспорт']}
@@ -65,7 +98,7 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
             <div className={styles.wrapper}>
                 <div className={styles.list}>
                     <Heading className={styles.heading} size="h3">Датасеты</Heading>
-                    {datasets.map((item) => (
+                    {workpiece.parental_datasets && workpiece.parental_datasets.map((item) => (
                         <div onClick={() => handleMoveToSelection(item)} className={styles.datasetPreview}>
                             <span>{item.name}</span>
                             <img src={addIcon} alt=""/>
@@ -94,31 +127,53 @@ function PrepareSelection({ datasetsInCollection, dataOperators, ...rest }) {
                 </div>
             </div>
 
-            {selectedSelection && (
+            {selectedSelection ? (
                 <>
-                    <TabList {...tab} aria-label="My tabs">
-                        <Tab {...tab} id="filterTab">Фильтрация</Tab>
-                        <Tab {...tab}>Агрегация</Tab>
-                        <Tab {...tab}>Добавление фичей</Tab>
+                    <TabList className={styles.tabHeader} {...tab} aria-label="My tabs">
+                        <div>
+                            <Tab {...tab} id="filterTab">Фильтрация</Tab>
+                            <Tab {...tab}>Агрегация</Tab>
+                            <Tab {...tab}>Добавление фичей</Tab>
+                        </div>
+                        <div>
+                            <Button>Продолжить</Button>
+                            <Button onClick={handleSave} className={styles.saveButton}>Сохранить выборку</Button>
+                        </div>
                     </TabList>
                     <div className={styles.editor}>
-                        <TabPanel {...tab}>
+                        <TabPanel {...tab} onClick={() => handleChangeOperators('filter')}>
                             <DataProcessingView
+                                onChange={(data) => setFilterData(data)}
                                 operators={currentOperators}
                                 addResBlock
                                 datasets={selectedSelection.dataset}/>
                         </TabPanel>
-                        <TabPanel {...tab}>Tab 2</TabPanel>
-                        <TabPanel {...tab}>Tab 3</TabPanel>
+                        <TabPanel {...tab}>
+                            <div className={styles.checkboxWrapper}>
+                                {selectedSelection.dataset && selectedSelection.dataset[0].fields && selectedSelection.dataset[0].fields.map((field) => (
+                                    <label className={styles.checkbox}>
+                                        <input type="checkbox" onClick={handleAggregation}/>
+                                        {field.name}
+                                    </label>
+                                ))}
+                            </div>
+                        </TabPanel>
+                        <TabPanel {...tab} onClick={() => handleChangeOperators('feature')}>
+                            <DataProcessingView
+                                onChange={(data) => {
+                                    console.log('f');
+                                    setFeatureData(data);
+                                }}
+                                operators={currentOperators}
+                                datasets={selectedSelection.dataset}/>
+                        </TabPanel>
                     </div>
                 </>
-            )}
-
-            <Button>Продолжить</Button>
+            ) : <Button>Продолжить</Button>}
         </>
     )
 }
 
-const mapToProps = ({ datasetsInCollection, dataOperators }) => ({ datasetsInCollection, dataOperators });
+const mapToProps = ({ workpiece, dataOperators }) => ({ workpiece, dataOperators });
 
 export default connect(mapToProps, actions)(PrepareSelection);

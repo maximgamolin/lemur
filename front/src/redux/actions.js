@@ -25,15 +25,39 @@ const actions = store => ({
             })
             .catch((err) => toast.error('Не удалось загрузить датасеты'));
     },
-    loadProfile: async (state) => {
-        api.get(api.URLS.me)
+
+    initWorkpiece: async (state, name) => {
+        return api.post(api.URLS.initWorkpiece, { name: name })
+            .then((res) => {
+                if (res) {
+                    store.setState({ workpiece: res });
+                }
+                else
+                    toast.error('Не удалось создать выборку');
+            })
+            .catch((err) => toast.error('Не удалось создать выборку'));
+    },
+    getActiveWorkpiece: async (state) => {
+        api.get(api.URLS.getActiveWorkpiece)
             .then((res) => {
                 if (res)
-                    store.setState({ profile: res });
+                    store.setState({ workpiece: res });
                 else
-                    toast.error('Не удалось загрузить профиль');
+                    toast.error('Не удалось загрузить выборку');
             })
-            .catch((err) => toast.error('Не удалось загрузить профиль'));
+            .catch((err) => toast.error('Не удалось загрузить выборку'));
+    },
+
+    loadProfile: async (state) => {
+        // api.get(api.URLS.me)
+        //     .then((res) => {
+        //         console.log(res);
+        //         if (res)
+        //             store.setState({ profile: res });
+        //         else
+        //             toast.error('Не удалось загрузить профиль');
+        //     })
+        //     .catch((err) => toast.error('Не удалось загрузить профиль'));
     }
 });
 

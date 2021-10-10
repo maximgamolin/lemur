@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   unstable_useFormState as useFormState,
   unstable_Form as Form,
@@ -7,12 +8,14 @@ import {
   unstable_FormMessage as FormMessage,
   unstable_FormSubmitButton as FormSubmitButton,
 } from "reakit/Form";
-import { Input } from "reakit/Input";
-import Heading from "../../../typography/Heading";
+import toast from 'react-hot-toast';
 import Stages from "../../../blocks/Stages";
+import { connect } from "redux-zero/react";
+import actions from "../../../redux/actions";
 
 
-function CreateSelection({ ...rest }) {
+function CreateSelection({ initWorkpiece, ...rest }) {
+    const history = useHistory();
     const form = useFormState({
         values: { name: '' },
         onValidate: (values) => {
@@ -23,10 +26,16 @@ function CreateSelection({ ...rest }) {
                 throw errors;
             }
         },
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async (values) => {
+            initWorkpiece(values.name)
+                .then(() => {
+                    history.push('/collections/prepare/');
+                    toast.success('Выборка создана!');
+                });
         },
     });
+
+
 
     return (
         <>
@@ -43,4 +52,6 @@ function CreateSelection({ ...rest }) {
     )
 }
 
-export default CreateSelection;
+const mapToProps = ({availableTags, allDatasets}) => ({availableTags, allDatasets});
+
+export default connect(mapToProps, actions)(CreateSelection);

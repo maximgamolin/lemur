@@ -21,7 +21,7 @@ function useForceUpdate() {
     return () => setValue(value => value + 1);
 }
 
-function DataProcessingView({ className, datasets, operators, addResBlock, ...rest }) {
+function DataProcessingView({ onChange, className, datasets, operators, addResBlock, ...rest }) {
     const [engine, setEngine] = useState();
     const [model, setModel] = useState();
     const forceUpdate = useForceUpdate();
@@ -37,8 +37,10 @@ function DataProcessingView({ className, datasets, operators, addResBlock, ...re
                 color: 'rgb(0,192,255)',
             });
 
-            for (const field of Object.keys(dataset.schema)) {
-                node.addOutPort(field);
+            if (dataset.fields) {
+                for (const field of dataset.fields) {
+                    node.addOutPort(field.name);
+                }
             }
 
             node.setPosition(100, y_counter);
@@ -58,7 +60,7 @@ function DataProcessingView({ className, datasets, operators, addResBlock, ...re
         }
 
         engine.getPortFactories().registerFactory(
-            new VariablePortFactory('diamond', (config) => new VariablePortModel(PortModelAlignment.LEFT))
+            new VariablePortFactory('variable', (config) => new VariablePortModel(PortModelAlignment.LEFT))
         );
         engine.setModel(model);
         // engine.getStateMachine().pushState(new CustomState());
@@ -107,8 +109,6 @@ function DataProcessingView({ className, datasets, operators, addResBlock, ...re
                 nodes = layer;
         }
 
-        console.log(nodes);
-
         res['nodes'] = Object.keys(nodes.models).map((id) => ({
             id: id,
             name: nodes.models[id].name,
@@ -126,7 +126,7 @@ function DataProcessingView({ className, datasets, operators, addResBlock, ...re
             targetPort: nodes.models[id].targetPort,
         }));
 
-        console.log(res);
+        onChange(res);
     }
 
     const groupedOperators = {};
@@ -137,7 +137,7 @@ function DataProcessingView({ className, datasets, operators, addResBlock, ...re
             groupedOperators[operator.category] = [operator];
 
     return (
-        <div className={styles.wrapper} {...rest} >
+        <div onClick={dump} className={styles.wrapper} {...rest} >
             <div className={styles.toolsMenu}>
                 {Object.keys(groupedOperators).map((group) => (
                     <Dropdown className={styles.toolsButton}>

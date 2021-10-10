@@ -6,9 +6,9 @@ import styles from './index.module.css';
 
 
 export class VariablePortModel extends DefaultPortModel {
-	constructor(alignment) {
+	constructor(alignment, isIn) {
 		super({
-            in: false,
+            in: isIn,
 			type: 'variable',
 			name: alignment,
 			alignment: alignment,
@@ -43,7 +43,8 @@ export class VariableNodeModel extends NodeModel {
             type: 'variable',
             test: 'test',
         });
-        this.addPort(new VariablePortModel(PortModelAlignment.RIGHT));
+        this.addPort(new VariablePortModel(PortModelAlignment.RIGHT, false));
+        this.addPort(new VariablePortModel(PortModelAlignment.LEFT, true));
     }
 
     serialize() {
@@ -70,6 +71,9 @@ export class VariableNodeWidget extends React.Component {
                 <input type="text"  className={styles.variableInput} onChange={this.handleChange}/>
                 <PortWidget className={styles.variablePort}
                     port={this.props.node.getPort(PortModelAlignment.RIGHT)}
+                    engine={this.props.engine} />
+                <PortWidget className={styles.variablePort}
+                    port={this.props.node.getPort(PortModelAlignment.LEFT)}
                     engine={this.props.engine} />
             </div>
         );

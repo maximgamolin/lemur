@@ -1,19 +1,23 @@
 import { BrowserRouter as Router, Route, Switch, useRouteMatch } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 
 import CreateSelection from './CreateSelection';
 import PrepareSelection from './PrepareSelection';
+import { connect } from "redux-zero/react";
+import actions from "../../redux/actions";
 
 
-function GenerateSelectionPage({ ...rest }) {
+function GenerateSelectionPage({ getActiveWorkpiece,...rest }) {
     let match = useRouteMatch();
 
-    console.log(match);
+    useEffect(() => {
+        getActiveWorkpiece();
+    }, []);
 
     return (
         <div>
             <Switch>
-                <Route path={`${match.url}/prepare`}>
+                <Route path={`${match.url}/prepare/`}>
                     <PrepareSelection/>
                 </Route>
                 <Route path={`${match.url}`}>
@@ -24,4 +28,6 @@ function GenerateSelectionPage({ ...rest }) {
     );
 }
 
-export default GenerateSelectionPage;
+const mapToProps = ({  }) => ({  });
+
+export default connect(mapToProps, actions)(GenerateSelectionPage);

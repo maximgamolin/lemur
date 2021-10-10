@@ -71,16 +71,16 @@ function PrepareSelection({ workpiece, dataOperators, ...rest }) {
         console.log(filterData);
         console.log(featureData);
         console.log(aggregateData);
-        // api.post(api.URLS.createDataPeace, {
-        //     name: selectedSelection.name,
-        //     dataset_id: selectedSelection.dataset[0].id,
-        //     workpiece_id: workpiece.id,
-        //     raw_filtering: filterData,
-        //     raw_features: featureData,
-        //     raw_aggregation: aggregateData,
-        // })
-        //     .then((res) => toast.success('Выборка сохранена!'))
-        //     .catch((res) => toast.error('Ошибка при сохранении выборки'))
+        api.post(api.URLS.createDataPeace, {
+            name: selectedSelection.name,
+            dataset_id: selectedSelection.dataset[0].id,
+            workpiece_id: workpiece.id,
+            raw_filtering: filterData,
+            raw_features: featureData,
+            raw_aggregation: aggregateData,
+        })
+            .then((res) => toast.success('Выборка сохранена!'))
+            .catch((res) => toast.error('Ошибка при сохранении выборки'))
     }
 
     function handleAggregation(field) {

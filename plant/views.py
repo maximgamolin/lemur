@@ -278,4 +278,12 @@ class CalculateResultDatasetPrelimPriceView(APIView):
         return Response(self.PricingDatasetSerializer(instance=pricing, many=True).data)
 
 
+class LastWorkpiece(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        obj = Workpiece.objects.filter(is_active=True).order_by('-updated_at').first()
+        if not obj:
+            return Response({})
+        return Response(WorkpieceSerializer(instance=obj).data)
 

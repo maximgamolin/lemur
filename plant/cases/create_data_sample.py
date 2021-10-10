@@ -10,7 +10,9 @@ class CreateDataSampleService:
 
     def __init__(self, workpiece,
                  dataset: Dataset,
+                 name,
                  raw_operations: RawOperations):
+        self._name = name
         self._workpiece = workpiece
         self._dataset = dataset
         self._raw_operations = raw_operations
@@ -23,7 +25,8 @@ class CreateDataSampleService:
             raw_filtering=self._raw_operations.filtering,
             raw_aggregation=self._raw_operations.aggregation,
             raw_features=self._raw_operations.features,
-            fields=self._dataset.fields
+            fields=self._dataset.fields,
+            name=self._name
         )
 
     def _raw_filters_to_filters(self):

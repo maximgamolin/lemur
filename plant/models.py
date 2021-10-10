@@ -30,6 +30,7 @@ class WorkpiecePricing(models.Model):
 
 
 class DataSampling(models.Model):
+    name = models.CharField(max_length=255)
     workpiece = models.ForeignKey('plant.Workpiece', on_delete=models.CASCADE, related_name='datasamples')
     dataset = models.ForeignKey('stock.Dataset', on_delete=models.CASCADE, related_name='datasamples')
     fields = models.JSONField(null=True, blank=True)

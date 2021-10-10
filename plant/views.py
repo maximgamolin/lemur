@@ -66,6 +66,7 @@ class CreateDataSampleView(APIView):
     class CreateDataSampleSerializer(serializers.Serializer):
         dataset_id = serializers.IntegerField(min_value=1)
         workpiece_id = serializers.IntegerField(min_value=1)
+        name = serializers.CharField()
         raw_filtering = serializers.JSONField()
         raw_aggregation = serializers.JSONField()
         raw_features = serializers.JSONField()
@@ -95,6 +96,7 @@ class CreateDataSampleView(APIView):
         service = CreateDataSampleService(
             workpiece,
             dataset,
+            serializer.validated_data['name'],
             raw_operations
         )
         workpiece = service.create_data_sample()
